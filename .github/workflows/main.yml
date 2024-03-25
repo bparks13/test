@@ -1,0 +1,41 @@
+name: publish
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  build:
+    name: Build Package
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4 # Checks out the repo owner / name, using ${{ github.repository }}
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2.0.0
+
+      - name: Restore NuGet Packages
+        run: nuget restore .\brandon.parks.Test.NuGet\brandon.parks.Test.NuGet.sln
+
+      - name: Build Project
+        run: msbuild .\brandon.parks.Test.NuGet\brandon.parks.Test.NuGet.sln /t:brandon.parks.Test.NuGet /p:Configuration=Release
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: nuget
+          if-no-files-found: error
+          path: .\brandon.parks.Test.NuGet\bin\Release\*.nupkg
