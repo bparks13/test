@@ -12,6 +12,10 @@ defaults:
   run:
     shell: pwsh
 
+env:
+  SolutionFile: .\brandon.parks.Test.NuGet\brandon.parks.Test.NuGet.sln
+  NuGetDirectory: .\brandon.parks.Test.NuGet\bin\Release
+
 jobs:
   build:
     name: Build Package
@@ -19,7 +23,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4 # Checks out the repo owner / name, using ${{ github.repository }}
+        uses: actions/checkout@v4
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
@@ -28,14 +32,34 @@ jobs:
         uses: NuGet/setup-nuget@v2.0.0
 
       - name: Restore NuGet Packages
-        run: nuget restore brandon.parks.Test.NuGet.sln
+        run: nuget restore ${{ env.SolutionFile }}
 
       - name: Build Project
-        run: msbuild .\brandon.parks.Test.NuGet\brandon.parks.Test.NuGet.sln /p:Configuration=Release
+        run: msbuild ${{ env.SolutionFile }} /p:Configuration=Release
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4.3.1
         with:
           name: nuget
           if-no-files-found: error
-          path: .\brandon.parks.Test.NuGet\bin\Release\*.nupkg
+          path: ${{ env.NuGetDirectory }}\*.nupkg
+
+  deploy:
+    name: Deploy Package
+    needs: build
+    runs-on: windows-2022
+
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4.1.4
+        with:
+          name: nuget
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '4.7.2'
+    
+      - name: Publish NuGet Package
+        run: |
+          dotnet nuget push brandon.parks.Test.NuGet.0.1.0.nupkg --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
