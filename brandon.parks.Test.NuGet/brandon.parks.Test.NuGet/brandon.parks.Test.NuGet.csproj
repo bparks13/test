@@ -18,7 +18,7 @@
     <RepositoryType>git</RepositoryType>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	<TargetFramework>net472</TargetFramework>
-	<Version>0.1.1</Version>
+	<Version>0.1.2</Version>
 	<Features>strict</Features>
   </PropertyGroup>
 
