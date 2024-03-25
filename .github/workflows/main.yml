@@ -60,4 +60,4 @@ jobs:
     
       - name: Publish NuGet Package
         run: |
-          dotnet nuget push brandon.parks.Test.NuGet.0.1.1.nupkg --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json
+          dotnet nuget push *.nupkg --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json
