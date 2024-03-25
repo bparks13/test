@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <Title>brandon.parks.Test.NuGet</Title>
-    <Description>A package for the Bonsai visual programming language.</Description>
-    <Authors></Authors>
-    <Copyright>Copyright ©  2024</Copyright>
+    <Description>A test package for Bonsai. Do not use.</Description>
+    <Authors>Brandon A. Parks</Authors>
+    <Copyright>Copyright © Brandon A. Parks 2024</Copyright>
     <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
     <ProjectUrl>https://github.com/bonsai-rx/bonsai</ProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -13,12 +13,12 @@
     <IncludeSymbols Condition="'$(Configuration)'=='Release'">true</IncludeSymbols>
     <PackageOutputPath>..\bin\$(Configuration)</PackageOutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <PackageTags>Bonsai Rx brandon.parks.Test.NuGet</PackageTags>
+    <PackageTags>Bonsai Rx test</PackageTags>
     <RepositoryUrl>https://github.com/bparks13/test</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	<TargetFramework>net472</TargetFramework>
-	<Version>0.1.0</Version>
+	<Version>0.1.1</Version>
 	<Features>strict</Features>
 </PropertyGroup>
 
