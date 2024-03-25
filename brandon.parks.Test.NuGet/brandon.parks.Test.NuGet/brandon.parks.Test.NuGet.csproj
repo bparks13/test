@@ -9,6 +9,7 @@
     <ProjectUrl>https://github.com/bonsai-rx/bonsai</ProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon></PackageIcon>
     <IncludeSymbols Condition="'$(Configuration)'=='Release'">true</IncludeSymbols>
     <PackageOutputPath>..\bin\$(Configuration)</PackageOutputPath>
@@ -23,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-  	<None Include="..\..\..\README.md" Pack="true" PackagePath="\"/>
+  	<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 	
   <ItemGroup>
