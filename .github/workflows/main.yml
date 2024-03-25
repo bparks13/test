@@ -42,7 +42,7 @@ jobs:
         with:
           name: nuget
           if-no-files-found: error
-          path: ${{ env.NuGetDirectory }}\*.nupkg
+          path: ${{ env.NuGetDirectory }}\*nupkg
 
   deploy:
     name: Deploy Package
