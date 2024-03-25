@@ -57,9 +57,7 @@ jobs:
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
-        #with:
-        #  dotnet-version: '4.7.2'
     
       - name: Publish NuGet Package
         run: |
-          dotnet nuget push brandon.parks.Test.NuGet.0.1.0.nupkg --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push brandon.parks.Test.NuGet.0.1.0.nupkg --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json
