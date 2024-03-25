@@ -18,12 +18,12 @@
     <RepositoryType>git</RepositoryType>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	<TargetFramework>net472</TargetFramework>
-	<Version>0.1.2</Version>
+	<Version>0.1.3</Version>
 	<Features>strict</Features>
   </PropertyGroup>
 
   <ItemGroup>
-  	<None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+  	<None Include="..\..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 	
   <ItemGroup>
