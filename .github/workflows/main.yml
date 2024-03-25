@@ -57,8 +57,8 @@ jobs:
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '4.7.2'
+        #with:
+        #  dotnet-version: '4.7.2'
     
       - name: Publish NuGet Package
         run: |
