@@ -32,6 +32,6 @@ jobs:
           version_current=$(grep '<Version>' ./current/${{ inputs.projectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
           version_main=$(grep '<Version>' ./main/${{ inputs.projectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
           if [ $version_current == $version_main ]; then
-            echo "New version number is the same as the old version number"
+            echo "::error title=Same verion number::Version number must be updated on pushes to main"
             exit 1
           fi
