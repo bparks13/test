@@ -36,9 +36,12 @@ jobs:
       - name: Find version number
         shell: bash
         run: |
+          echo 'here1'
           cat ./main/${{ env.ProjectFile }}
           ls current/brandon.parks.Test.NuGet/brandon.parks.Test.NuGet
+          echo 'here2'
           version_current=$(grep '<Version>' ./current/${{ env.ProjectFile }} | grep -Eo "[0-9]+/.[0-9]+/.[0-9]+-?/w*")
+          echo 'here3'
           version_main=$(grep '<Version>' ./main/${{ env.ProjectFile }} | grep -Eo "[0-9]+/.[0-9]+/.[0-9]+-?/w*")
           echo $version_current
           echo $version_main
