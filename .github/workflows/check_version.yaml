@@ -1,0 +1,37 @@
+name: check_version
+on:
+  workflow_call:
+    inputs:
+      projectFile:
+        required: true
+        type: string
+
+jobs:
+  check_version:
+    name: Check Version Number
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current commit
+        uses: actions/checkout@v4
+        with:
+          path: current
+          sparse-checkout: ${{ inputs.projectFile }}
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+          path: main
+          sparse-checkout: ${{ inputs.projectFile }}
+
+      - name: Find version numbers
+        shell: bash
+        run: |
+          grep_out=$(grep '<Version>' ./current/${{ inputs.projectFile }})
+          version_current=$(grep '<Version>' ./current/${{ inputs.projectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
+          version_main=$(grep '<Version>' ./main/${{ inputs.projectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
+          if [ $version_current == $version_main ]; then
+            echo "New version number is the same as the old version number"
+            exit 1
+          fi
