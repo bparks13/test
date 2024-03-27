@@ -11,11 +11,39 @@ defaults:
 
 env:
   SolutionFile: .\brandon.parks.Test.NuGet\brandon.parks.Test.NuGet.sln
+  ProjectFile: brandon.parks.Test.NuGet\brandon.parks.Test.NuGet\brandon.parks.Test.NuGet.csproj
   NuGetDirectory: .\brandon.parks.Test.NuGet\bin\Release
 
 jobs:
+  check_version:
+    name: Check Version Increase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current commit
+        uses: actions/checkout@v4
+        with:
+          path: current
+          sparse-checkout: ${{ env.ProjectFile }}
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+          path: main
+          sparse-checkout: ${{ env.ProjectFile }}
+
+      - name: Find version number
+        shell: bash
+        run: |
+          version_current=$(grep '<Version>' .\current\${{ env.ProjectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
+          version_main=$(grep '<Version>' .\main\${{ env.ProjectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
+          echo $version_current
+          echo $version_main
+
   build:
     name: Build Package
+    needs: check_version
     runs-on: windows-2022
 
     steps:
@@ -43,7 +71,7 @@ jobs:
 
   deploy:
     name: Deploy Package
-    needs: build
+    needs: [check_version, build]
     runs-on: windows-2022
 
     steps:
