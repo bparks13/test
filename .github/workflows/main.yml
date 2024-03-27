@@ -39,7 +39,7 @@ jobs:
           grep_out=$(grep '<Version>' ./current/${{ env.ProjectFile }})
           version_current=$(grep '<Version>' ./current/${{ env.ProjectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
           version_main=$(grep '<Version>' ./main/${{ env.ProjectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
-          if [ version_current == version_main ]
+          if [ version_current == version_main ]; then
             echo "New version number is the same as the old version number"
             exit 1
           fi
