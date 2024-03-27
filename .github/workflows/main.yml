@@ -39,9 +39,9 @@ jobs:
           grep_out=$(grep '<Version>' ./current/${{ env.ProjectFile }})
           echo $grep_out
           echo 'here2'
-          version_current=$(grep '<Version>' ./current/${{ env.ProjectFile }} | grep -Eo "[0-9]+/.[0-9]+/.[0-9]+-?/w*")
+          version_current=$(grep '<Version>' ./current/${{ env.ProjectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
           echo 'here3'
-          version_main=$(grep '<Version>' ./main/${{ env.ProjectFile }} | grep -Eo "[0-9]+/.[0-9]+/.[0-9]+-?/w*")
+          version_main=$(grep '<Version>' ./main/${{ env.ProjectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
           echo $version_current
           echo $version_main
 
