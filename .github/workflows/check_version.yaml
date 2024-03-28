@@ -10,7 +10,7 @@ jobs:
   check_version:
     name: Check Version Number
     runs-on: ubuntu-latest
-    environment: testing
+    environment: Testing
 
     steps:
       - name: Checkout current commit
