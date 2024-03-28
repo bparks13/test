@@ -9,22 +9,17 @@ defaults:
     shell: pwsh
 
 jobs:
-  check_version:
-    uses: ./.github/workflows/check_version.yaml
-    with:
-      projectFile: brandon.parks.Test.NuGet/brandon.parks.Test.NuGet/brandon.parks.Test.NuGet.csproj
-  
   build:
     uses: ./.github/workflows/build_package.yaml
-    needs: check_version
     with:
       solutionFile: ./brandon.parks.Test.NuGet/brandon.parks.Test.NuGet.sln
       nugetDirecory: ./brandon.parks.Test.NuGet/bin/Release
     
   deploy:
     name: Deploy Package
-    needs: [check_version, build]
+    needs: [build]
     runs-on: windows-2022
+    environment: production
 
     steps:
       - name: Download Artifact
