@@ -19,7 +19,7 @@ jobs:
     name: Deploy Package
     needs: [build]
     runs-on: windows-2022
-    environment: production
+    environment: Production
 
     steps:
       - name: Download Artifact

@@ -13,7 +13,7 @@ jobs:
   build:
     name: Build Package
     runs-on: windows-2022
-    environment: testing
+    environment: Testing
 
     steps:
       - name: Checkout
