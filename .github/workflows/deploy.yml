@@ -19,7 +19,7 @@ jobs:
         run: |
           repo="bparks13/test"
           workflow="test_build.yaml"
-          artfiact="nuget"
+          artifact="nuget"
           run_id=`gh run --repo ${repo} list --workflow ${workflow} --json databaseId --jq .[0].databaseOd`
           gh run --repo ${repo} download ${run_id} -n ${artifact}
         shell: bash
