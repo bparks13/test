@@ -1,4 +1,4 @@
-name: build_and_deploy
+name: deploy
 on:
   push:
     branches:
@@ -9,23 +9,22 @@ defaults:
     shell: pwsh
 
 jobs:
-  build:
-    uses: ./.github/workflows/build_package.yaml
-    with:
-      solutionFile: ./brandon.parks.Test.NuGet/brandon.parks.Test.NuGet.sln
-      nugetDirecory: ./brandon.parks.Test.NuGet/bin/Release
-    
   deploy:
     name: Deploy Package
-    needs: [build]
     runs-on: windows-2022
     environment: Production
 
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v4.1.4
-        with:
-          name: nuget
+        run: |
+          repo="bparks13/test"
+          workflow="test_build.yaml"
+          artifact="nuget"
+          run_id=`gh run --repo ${repo} list --workflow ${workflow} --json databaseId --jq .[0].databaseOd`
+          gh run --repo ${repo} download ${run_id} -n ${artifact}
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
