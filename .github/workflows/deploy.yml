@@ -16,10 +16,15 @@ jobs:
 
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v4.1.4
-        with:
-          name: nuget
-          github-token: ${{ secrets.GH_PAT }}
+        run: |
+          repo="bparks13/test"
+          workflow="test_build.yaml"
+          artfiact="nuget"
+          run_id=`gh run --repo ${repo} list --workflow ${workflow} --json databaseId --jq .[0].databaseOd`
+          gh run --repo ${repo} download ${run_id} -n ${artifact}
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
