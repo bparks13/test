@@ -29,10 +29,9 @@ jobs:
       - name: Find version numbers
         shell: bash
         run: |
-          grep_out=$(grep '<Version>' ./current/${{ inputs.projectFile }})
-          version_current=$(grep '<Version>' ./current/${{ inputs.projectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
-          version_main=$(grep '<Version>' ./main/${{ inputs.projectFile }} | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
-          if [[ $version_current <= $version_main ]]; then
+          version_current=$(grep '<Version>' "./current/${{ inputs.projectFile }}" | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
+          version_main=$(grep '<Version>' "./main/${{ inputs.projectFile }}" | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+-?\w*")
+          if [[ ! "$version_current" > "$version_main" ]]; then # TODO: Need to build this comparison out more, currently fails for 0.0.10 compared to 0.0.9
             echo "::error title=Invalid version number::Version number must be increased on pushes to main"
             exit 1
           fi
