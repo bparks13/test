@@ -14,7 +14,7 @@ namespace brandon.parks.Test.NuGet
     {
         public IObservable<int> Generate()
         {
-            return Observable.Return(1);
+            return Observable.Return(false);
         }
     }
 }
